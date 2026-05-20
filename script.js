@@ -59,3 +59,15 @@ function fb_write() {
     fruitQuantity: fruitQuantity,
   });
 }
+
+function fb_sendEmail() {
+
+  document.getElementById("reviewSection").style.display = "none";
+
+  let user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("Please log in first.");
+    return;
+  }
+}
