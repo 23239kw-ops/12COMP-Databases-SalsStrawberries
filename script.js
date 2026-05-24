@@ -70,4 +70,8 @@ function fb_sendEmail() {
     alert("Please log in first.");
     return;
   }
+  let userID = user.uid;
+  let email = user.email;
+
+  
 }
