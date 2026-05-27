@@ -62,16 +62,59 @@ function fb_write() {
 
 function fb_sendEmail() {
 
-  document.getElementById("reviewSection").style.display = "none";
-
   let user = firebase.auth().currentUser;
 
   if (!user) {
     alert("Please log in first.");
     return;
   }
-  let userID = user.uid;
-  let email = user.email;
 
-  
+  // Get the name from the form
+  const name = document.getElementById("name").value;
+
+  firebase.database().ref("fruitForms/" + name)
+    .once("value")
+    .then((snapshot) => {
+
+      const data = snapshot.val();
+
+      if (!data) {
+        alert("No form data found in database.");
+        return;
+      }
+
+      // Get values from Firebase
+      const email = user.email;
+      const favoriteFruit = data.favoriteFruit;
+      const fruitQuantity = data.fruitQuantity;
+
+      document.getElementById('emailMessage').innerHTML = `
+
+        <div>
+          <p>To: ${email}</p>
+          <p>From: Sal's Strawberry Saloon</p>
+
+          <p>Hello, ${name}</p>
+
+          <p>
+            This is the fruit shop
+          </p>
+
+          <p>
+            We are offering a deal on your favorite fruit:
+            ${favoriteFruit}
+          </p>
+
+          <p>
+            You can get ${fruitQuantity} servings per week.
+          </p>
+
+          <p>
+            Best regards,<br>
+            Fruits
+          </p>
+        </div>
+
+      `;
+    });
 }
