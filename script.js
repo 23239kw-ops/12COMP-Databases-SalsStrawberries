@@ -58,6 +58,7 @@ function fb_write() {
     favoriteFruit: favoriteFruit,
     fruitQuantity: fruitQuantity,
   });
+  document.getElementById('statusMessage').innerHTML = `Form submitted!`
 }
 
 function fb_sendEmail() {
